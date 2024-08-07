@@ -1,4 +1,22 @@
 package pe.idat.altaredshop.auth.data.network.service
 
-class AuthService {
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import pe.idat.altaredshop.auth.data.network.request.LoginRequest
+import pe.idat.altaredshop.auth.data.network.response.LoginResponse
+import pe.idat.altaredshop.core.retrofit.AltaredClient
+
+import javax.inject.Inject
+
+class AuthService @Inject
+        constructor(private val altaredClient: AltaredClient){
+
+    suspend fun login(loginRequest: LoginRequest): LoginResponse{
+        return withContext(Dispatchers.IO){
+            val response = altaredClient.login(loginRequest)
+            response.body()!!
+        }
+    }
 }
+
+//-->  01:10:29

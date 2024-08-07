@@ -1,4 +1,6 @@
 package pe.idat.altaredshop.auth.data.network.request
 
-class LoginRequest {
-}
+data class LoginRequest(
+    var user : String,
+    var pass: String
+)

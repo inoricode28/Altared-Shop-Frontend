@@ -1,4 +1,8 @@
 package pe.idat.altaredshop
 
-class MiApp {
+import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
+
+@HiltAndroidApp
+class MiApp :Application(){
 }
