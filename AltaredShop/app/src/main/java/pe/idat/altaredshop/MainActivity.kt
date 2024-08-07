@@ -28,8 +28,8 @@ class MainActivity : ComponentActivity() {
                // loginScreen()
                 //registroScreen()
                 //pagoScreen()
-    //            productoScreen()
-                  catalogoScreen()
+                productoScreen()
+     //             catalogoScreen()
 
             }
         }
