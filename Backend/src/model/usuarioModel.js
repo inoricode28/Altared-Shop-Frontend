@@ -17,19 +17,22 @@ const createUsuarioTableAndData = async () => {
         if (rows.length === 0) {
             await dbConnection.execute(`
             CREATE TABLE Usuario (
-                id      INT             AUTO_INCREMENT  PRIMARY KEY,
-                correo  VARCHAR(100)    NOT NULL,
-                user    VARCHAR(50)     NOT NULL,
-                pass    VARCHAR(100)    NOT NULL
+                id         INT             AUTO_INCREMENT  PRIMARY KEY,
+                nombre     VARCHAR(100)    NOT NULL,
+                apellido   VARCHAR(100)    NOT NULL,
+                correo     VARCHAR(100)    NOT NULL,
+                celular    VARCHAR(50)     NOT NULL,
+                user       VARCHAR(50)     NOT NULL,
+                pass       VARCHAR(100)    NOT NULL
             );
             `);
             console.log(`Tabla 'Usuario' creada exitosamente.`);
             
             await dbConnection.execute(`
-            INSERT INTO Usuario (correo, user, pass) VALUES
-            ('ken@altared.com', 'ken', '123'),
-            ('mige@altared.com', 'mige', '125'),
-            ('walter@altared.com', 'walter', '145');
+            INSERT INTO Usuario (nombre, apellido, correo, celular, user, pass) VALUES
+            ('Ken', 'Vega', 'ken@altared.com', '123456789', 'ken', '123'),
+            ('Mige', 'Chavez', 'mige@altared.com', '987654321', 'mige', '125'),
+            ('Walter', 'Vasques', 'walter@altared.com', '123123123', 'walter', '145');
             `);
             console.log(`Datos insertados en la tabla 'Usuario'.`);
         } else {
