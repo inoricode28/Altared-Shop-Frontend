@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import pe.idat.altaredshop.auth.data.network.request.LoginRequest
 import pe.idat.altaredshop.auth.data.network.response.LoginResponse
 import pe.idat.altaredshop.auth.domain.LoginUseCase
+import pe.idat.altaredshop.core.util.Evento
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,8 +24,8 @@ class LoginViewModel @Inject constructor(
 
     private val _botonLoginHabilitado = MutableLiveData<Boolean>()
     val botonLoginHabilitado : LiveData<Boolean> = _botonLoginHabilitado
-    private val _loginResponse = MutableLiveData<LoginResponse>()
-    val loginResponse: LiveData<LoginResponse> = _loginResponse
+    private val _loginResponse = MutableLiveData<Evento<LoginResponse>>()
+    val loginResponse: LiveData<Evento<LoginResponse>> = _loginResponse
 
 
     fun onValueChange(usuario: String, password:String){
@@ -38,7 +39,7 @@ class LoginViewModel @Inject constructor(
             val response = loginUseCase(
                 LoginRequest(usuario.value!!, password.value!!)
             )
-            _loginResponse.value =response
+            _loginResponse.value = Evento(response)
 
         }
 
