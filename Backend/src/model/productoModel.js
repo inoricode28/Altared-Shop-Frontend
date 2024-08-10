@@ -1,5 +1,3 @@
-// productosModel.js
-
 import mysql from "mysql2/promise";
 import config from "./../config";
 
@@ -19,18 +17,19 @@ const createProductosTableAndData = async () => {
             CREATE TABLE Productos (
                 id          INT             AUTO_INCREMENT  PRIMARY KEY,
                 Nombre      VARCHAR(100)    NOT NULL,
-                Precio      DECIMAL(10, 2)  NOT NULL,
-                Cantidad    INT             NOT NULL,
-                Descripcion TEXT
+                Precio      VARCHAR(100)    NOT NULL,  -- Modificación de DECIMAL a VARCHAR(100)
+                Cantidad    VARCHAR(100)    NOT NULL,  -- Modificación de INT a VARCHAR(100)
+                Descripcion TEXT,
+                Imagen      VARCHAR(255)    NOT NULL
             );
             `);
             console.log(`Tabla 'Productos' creada exitosamente.`);
             
             await dbConnection.execute(`
-            INSERT INTO Productos (Nombre, Precio, Cantidad, Descripcion) VALUES
-            ('Producto 1', 10.99, 100, 'Descripción del producto 1'),
-            ('Producto 2', 20.50, 50, 'Descripción del producto 2'),
-            ('Producto 3', 5.75, 200, 'Descripción del producto 3');
+            INSERT INTO Productos (Nombre, Precio, Cantidad, Descripcion, Imagen) VALUES
+            ('Producto 1', '10.99', '100', 'Descripción del producto 1', 'http://${config.host}:${config.port}/uploads/default1.jpg'),
+            ('Producto 2', '20.50', '50', 'Descripción del producto 2', 'http://${config.host}:${config.port}/uploads/default2.jpg'),
+            ('Producto 3', '5.75', '200', 'Descripción del producto 3', 'http://${config.host}:${config.port}/uploads/default3.jpg');
             `);
             console.log(`Datos insertados en la tabla 'Productos'.`);
         } else {

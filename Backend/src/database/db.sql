@@ -1,7 +1,7 @@
-CREATE DATABASE dbelectronica;
+CREATE DATABASE dbaltared;
 
 
-USE dbelectronica;
+USE dbAltared;
 
 CREATE TABLE Usuario (
     id      INT             AUTO_INCREMENT PRIMARY KEY,
