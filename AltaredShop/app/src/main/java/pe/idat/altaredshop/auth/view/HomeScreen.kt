@@ -28,7 +28,7 @@ data class Producto(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun catalogoScreen() {
+fun homeScreen() {
     var searchText by remember { mutableStateOf(TextFieldValue("")) }
     val productos = listOf(
         Producto("COLLAGSURE FLEX 500G", "Reforzado con Camu-Camu", 50.0, R.drawable.colagsureflex), // Reemplazar con el ID correcto
