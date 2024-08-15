@@ -14,7 +14,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import pe.idat.altaredshop.auth.view.homeScreen
 import pe.idat.altaredshop.auth.view.loginScreen
 import pe.idat.altaredshop.auth.view.registroScreen
+import pe.idat.altaredshop.auth.view.splashScreen
 import pe.idat.altaredshop.auth.viewmodel.LoginViewModel
+import pe.idat.altaredshop.auth.viewmodel.ProductoViewModel
 import pe.idat.altaredshop.auth.viewmodel.RegistroViewModel
 import pe.idat.altaredshop.core.ruta.RutaAltared
 import pe.idat.altaredshop.ui.theme.AltaredShopTheme
@@ -23,6 +25,7 @@ import pe.idat.altaredshop.ui.theme.AltaredShopTheme
 class MainActivity : ComponentActivity() {
     private val loginViewModel: LoginViewModel by viewModels()
     private val registroViewModel: RegistroViewModel by viewModels()
+    private val productoViewModel: ProductoViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -30,8 +33,11 @@ class MainActivity : ComponentActivity() {
             AltaredShopTheme {
 
                 val navigation = rememberNavController()
-                NavHost(navController = navigation, startDestination = RutaAltared.loginScreen.path,
+                NavHost(navController = navigation, startDestination = RutaAltared.splashScreen.path,
                     builder = {
+                        composable(RutaAltared.splashScreen.path){
+                            splashScreen(navigation)
+                        }
                         composable(RutaAltared.loginScreen.path){
                             loginScreen(loginViewModel, navigation)
                         }
@@ -39,7 +45,7 @@ class MainActivity : ComponentActivity() {
                             registroScreen(registroViewModel,navigation)
                         }
                         composable(RutaAltared.homeScreen.path){
-                            homeScreen()
+                            homeScreen(productoViewModel)
                         }
                     })
 
