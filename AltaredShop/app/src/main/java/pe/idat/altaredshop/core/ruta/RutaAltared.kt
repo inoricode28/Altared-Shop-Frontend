@@ -9,4 +9,6 @@ sealed class RutaAltared(val path:String) {
     object getstartedScreen : RutaAltared("getstartedScreen")
     object perfilScreen : RutaAltared("perfilScreen")
     object pagoScreen : RutaAltared("pagoScreen")
+    object ErroneaScreen : RutaAltared("ErroneaScreen")
+    object ExitosaScreen : RutaAltared("ExitosaScreen")
 }

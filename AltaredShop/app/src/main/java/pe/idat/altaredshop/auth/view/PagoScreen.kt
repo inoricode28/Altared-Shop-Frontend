@@ -15,10 +15,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun pagoScreen() {
+fun pagoScreen(navController: NavHostController) {
     var cardNumber by remember { mutableStateOf("") }
     var expirationYear by remember { mutableStateOf("") }
     var expirationMonth by remember { mutableStateOf("") }

@@ -18,10 +18,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.font.FontWeight
+import androidx.navigation.NavHostController
 import pe.idat.altaredshop.R
 
 @Composable
-fun ErroneaScreen(
+fun ErroneaScreen(navController: NavHostController,
     errorImage: Painter = painterResource(id = R.drawable.error_image) // Reemplaza 'error_image' con el nombre de tu recurso
 ) {
     Box(

@@ -23,7 +23,7 @@ fun splashScreen(navController: NavHostController){
 
     LaunchedEffect(key1 = true) {
         // Espera durante 5 segundos antes de proceder a la siguiente pantalla.
-        delay(1000)
+        delay(2000)
         // Actualiza el estado para permitir la navegación.
         shouldNavigate = true
 
