@@ -13,11 +13,13 @@ import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import pe.idat.altaredshop.auth.view.ErroneaScreen
 import pe.idat.altaredshop.auth.view.ExitosaScreen
+import pe.idat.altaredshop.auth.view.bienvenidaScreen
 import pe.idat.altaredshop.auth.view.getstartedScreen
 import pe.idat.altaredshop.auth.view.homeScreen
 import pe.idat.altaredshop.auth.view.loginScreen
 import pe.idat.altaredshop.auth.view.pagoScreen
 import pe.idat.altaredshop.auth.view.registroScreen
+import pe.idat.altaredshop.auth.view.selectLogScreen
 import pe.idat.altaredshop.auth.view.splashScreen
 import pe.idat.altaredshop.auth.viewmodel.LoginViewModel
 import pe.idat.altaredshop.auth.viewmodel.ProductoViewModel
@@ -62,6 +64,12 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(RutaAltared.ErroneaScreen.path){
                             ErroneaScreen(navigation)
+                        }
+                        composable(RutaAltared.bienvenidaScreen.path){
+                            bienvenidaScreen(navigation)
+                        }
+                        composable(RutaAltared.selectLogScreen.path){
+                            selectLogScreen(navigation)
                         }
                     })
 
