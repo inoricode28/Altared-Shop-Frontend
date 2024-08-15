@@ -27,9 +27,9 @@ const createProductosTableAndData = async () => {
             
             await dbConnection.execute(`
             INSERT INTO Productos (Nombre, Precio, Cantidad, Descripcion, Imagen) VALUES
-            ('Producto 1', '10.99', '100', 'Descripción del producto 1', 'http://${config.host}:${config.port}/uploads/default1.jpg'),
-            ('Producto 2', '20.50', '50', 'Descripción del producto 2', 'http://${config.host}:${config.port}/uploads/default2.jpg'),
-            ('Producto 3', '5.75', '200', 'Descripción del producto 3', 'http://${config.host}:${config.port}/uploads/default3.jpg');
+            ('Collagsure Flex 500g', '50.00', '20', 'Sabor frambuesa', 'http://${config.host}:${config.port}/uploads/default1.jpg'),
+            ('Collagsure Puro 500g', '50.00', '20', 'Sabor neutro', 'http://${config.host}:${config.port}/uploads/default2.jpg'),
+            ('Collagsure Q10 500g', '50.00', '20', 'Sabor fresa', 'http://${config.host}:${config.port}/uploads/default3.jpg');
             `);
             console.log(`Datos insertados en la tabla 'Productos'.`);
         } else {

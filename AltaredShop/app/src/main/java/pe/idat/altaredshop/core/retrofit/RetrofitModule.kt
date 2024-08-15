@@ -16,7 +16,7 @@ class RetrofitModule {
     @Provides
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://192.168.1.171:4000/api/")
+            .baseUrl("http://192.168.18.191:4000/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
