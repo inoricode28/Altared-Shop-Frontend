@@ -54,7 +54,7 @@ class MainActivity : ComponentActivity() {
                             registroScreen(registroViewModel,navigation)
                         }
                         composable(RutaAltared.homeScreen.path){
-                            homeScreen(productoViewModel)
+                            homeScreen(productoViewModel,navigation)
                         }
                         composable(RutaAltared.pagoScreen.path){
                             pagoScreen(navigation)

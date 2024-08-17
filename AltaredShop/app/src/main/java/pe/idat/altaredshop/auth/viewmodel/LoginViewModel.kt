@@ -9,12 +9,15 @@ import kotlinx.coroutines.launch
 import pe.idat.altaredshop.auth.data.network.request.LoginRequest
 import pe.idat.altaredshop.auth.data.network.response.LoginResponse
 import pe.idat.altaredshop.auth.domain.LoginUseCase
+import pe.idat.altaredshop.auth.domain.RegistroUsuarioUseCase
+import pe.idat.altaredshop.core.bd.UsuarioEntity
 import pe.idat.altaredshop.core.util.Evento
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase) : ViewModel(){
+    private val loginUseCase: LoginUseCase,
+    private val registroUsuarioUseCase: RegistroUsuarioUseCase) : ViewModel(){
 
     private val _usuario = MutableLiveData<String>()
     val usuario: LiveData<String> = _usuario
@@ -40,6 +43,17 @@ class LoginViewModel @Inject constructor(
                 LoginRequest(usuario.value!!, password.value!!)
             )
             _loginResponse.value = Evento(response)
+
+            registroUsuarioUseCase(UsuarioEntity(
+                response.id.toInt(),
+                response.nombre,
+                response.apellido,
+                response.correo,
+                response.celular,
+                response.user,
+                response.pass
+            ))
+
 
         }
 

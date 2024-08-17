@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.filled.Pets
@@ -29,6 +30,8 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,6 +40,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -49,7 +53,8 @@ import pe.idat.altaredshop.core.util.MenuItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun homeScreen(productoViewModel: ProductoViewModel){
+fun homeScreen(productoViewModel: ProductoViewModel,
+               principalNavController: NavController){
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val coroutineScope = rememberCoroutineScope()
     val navController = rememberNavController()
@@ -64,7 +69,7 @@ fun homeScreen(productoViewModel: ProductoViewModel){
                     "HOME" -> navController.navigate(RutaAltared.productoScreen.path)
                     "PERFIL" -> navController.navigate(RutaAltared.perfilScreen.path)
                 }
-            })
+            },productoViewModel)
             
         },
         content = {
@@ -83,6 +88,19 @@ fun homeScreen(productoViewModel: ProductoViewModel){
                           Icon(Icons.Default.Menu, contentDescription = "Menu")
 
                         }
+                    },
+                    actions = {
+                        IconButton(onClick = {
+                            productoViewModel.eliminarUsuario()
+                            principalNavController.navigate("loginScreen"){
+                                popUpTo(navController.graph.startDestinationId) {inclusive = true }
+                            }
+                        }) {
+                            Icon(imageVector = Icons.Default.ExitToApp,
+                                contentDescription = null,
+                                tint = Color.Black
+                            )
+                        }
                     })
                 NavHost(navController = navController,
                     startDestination = RutaAltared.productoScreen.path) {
@@ -97,13 +115,14 @@ fun homeScreen(productoViewModel: ProductoViewModel){
 
 @Composable
 fun DrawerContent(items: List<MenuItem>,
-                  onItemClick: (MenuItem) -> Unit){
+                  onItemClick: (MenuItem) -> Unit,
+                  productoViewModel: ProductoViewModel){
     Column(
         Modifier
             .fillMaxSize()
             .background(Color.White)
             .systemBarsPadding()) {
-        DrawerHeader()
+        DrawerHeader(productoViewModel)
         Spacer(modifier = Modifier.height(8.dp))
         items.forEach {item ->
             DrawerMenuItem(item = item, onItemClick = onItemClick)
@@ -113,7 +132,8 @@ fun DrawerContent(items: List<MenuItem>,
 }
 
 @Composable
-fun DrawerHeader(){
+fun DrawerHeader(productoViewModel: ProductoViewModel){
+    val usuario by productoViewModel.usuario.observeAsState()
     Row (
         modifier = Modifier
             .fillMaxWidth()
@@ -127,8 +147,12 @@ fun DrawerHeader(){
                 .clip(CircleShape))
         Spacer(modifier = Modifier.width(16.dp))
         Column {
-            Text(text = "Miguel Alfonzo Chavez Ramos", fontWeight = FontWeight.Bold)
-            Text(text = "inori237@gmail.com", color = Color.Gray)
+            usuario?.let {
+                values ->
+                Text(text = values.nombre, fontWeight = FontWeight.Bold)
+                Text(text = values.correo, color = Color.Gray)
+            }
+
         }
         
     }
