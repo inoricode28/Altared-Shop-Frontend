@@ -33,7 +33,7 @@ fun splashScreen(navController: NavHostController){
         // Elimina la pantalla actual del historial de navegación para que no se pueda volver a ella.
         navController.popBackStack()
         // Navega a la pantalla de inicio de sesión.
-        navController.navigate(RutaAltared.loginScreen.path)
+        navController.navigate(RutaAltared.getstartedScreen.path)
     }
     Splash()
 

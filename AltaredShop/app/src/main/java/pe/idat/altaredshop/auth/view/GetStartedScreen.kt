@@ -17,6 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import pe.idat.altaredshop.R
+import pe.idat.altaredshop.core.ruta.RutaAltared
 
 
 @Composable
@@ -59,7 +60,7 @@ fun getstartedScreen(navController: NavHostController){
             )
             Spacer(modifier = Modifier.height(20.dp))
             Button(
-                onClick = { /* Acción de Iniciar Sesión */ },
+                onClick = { navController.navigate(RutaAltared.bienvenidaScreen.path) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 32.dp)

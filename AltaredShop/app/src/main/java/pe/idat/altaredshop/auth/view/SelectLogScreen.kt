@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import pe.idat.altaredshop.R
+import pe.idat.altaredshop.core.ruta.RutaAltared
 
 @Composable
 fun selectLogScreen(navController: NavHostController){
@@ -73,7 +74,7 @@ fun selectLogScreen(navController: NavHostController){
             )
             Spacer(modifier = Modifier.height(24.dp))
             Button(
-                onClick = { /* Acción de Iniciar Sesión */ },
+                onClick = { navController.navigate(RutaAltared.loginScreen.path) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 32.dp)
@@ -85,7 +86,7 @@ fun selectLogScreen(navController: NavHostController){
             }
             Spacer(modifier = Modifier.height(16.dp))
             OutlinedButton(
-                onClick = { /* Acción de Registrarse */ },
+                onClick = { navController.navigate(RutaAltared.registroScreen.path) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 32.dp)

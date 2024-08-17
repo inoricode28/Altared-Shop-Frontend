@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import pe.idat.altaredshop.R
+import pe.idat.altaredshop.core.ruta.RutaAltared
 
 @Composable
 fun bienvenidaScreen(navController: NavHostController){
@@ -73,12 +74,12 @@ fun bienvenidaScreen(navController: NavHostController){
                         "la venta deproductos naturales\n" +
                         "de alta calidad",
                 color = Color.White,
-                fontSize = 22.sp,
+                fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
             )
             Spacer(modifier = Modifier.height(40.dp))
             Button(
-                onClick = { /* Acción de Iniciar Sesión */ },
+                onClick = { navController.navigate(RutaAltared.selectLogScreen.path) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 32.dp)
