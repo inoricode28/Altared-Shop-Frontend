@@ -46,16 +46,15 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
-
-
-
-
-
 import androidx.compose.animation.core.animateIntAsState
-
 import androidx.compose.foundation.shape.RoundedCornerShape
-
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.ui.text.style.TextOverflow
 import kotlinx.coroutines.delay
+
 
 @Composable
 fun ImageSlider() {
@@ -101,49 +100,55 @@ fun ImageSlider() {
     }
 }
 
-
 @Composable
 fun productoScreen(productoViewModel: ProductoViewModel) {
     val productos by productoViewModel.ProductoResponse.observeAsState(emptyList())
 
-    LazyColumn {
-        item {
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        LazyColumn(
+            modifier = Modifier.weight(1f)
+        ) {
+            item {
+                ImageSlider()
 
-            ImageSlider()
+                Spacer(modifier = Modifier.height(16.dp))
 
-            Spacer(modifier = Modifier.height(16.dp))
+                // Sección de Categorías (Forma circular)
+                Text(
+                    text = "CATEGORÍA",
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
 
-            // Sección de Categorías (Forma circular)
-            Text(
-                text = "CATEGORIA",
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.padding(horizontal = 16.dp)
-            )
-
-            // Limitar a las primeras 4 imágenes
-            LazyRow(modifier = Modifier.padding(16.dp)) {
-                items(productos.take(4)) { producto ->
-                    CategoryItem(producto = producto)
+                // Limitar a las primeras 4 imágenes
+                LazyRow(modifier = Modifier.padding(16.dp)) {
+                    items(productos.take(4)) { producto ->
+                        CategoryItem(producto = producto)
+                    }
                 }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                // Sección de Recomendaciones
+                Text(
+                    text = "RECOMENDACIONES",
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // Sección de Recomendaciones
-            Text(
-                text = "RECOMENDACIONES",
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.padding(horizontal = 16.dp)
-            )
+            // Mostrar las imágenes desde la quinta en adelante
+            items(productos.drop(4)) { producto ->
+                productoItem(producto = producto)
+            }
         }
 
-        // Mostrar las imágenes desde la quinta en adelante
-        items(productos.drop(4)) { producto ->
-            productoItem(producto = producto)
-        }
+        // Barra de navegación inferior
+        BottomNavigationBar()
     }
 }
-
 
 @Composable
 fun CategoryItem(producto: ProductoResponse) {
@@ -201,12 +206,61 @@ fun productoItem(producto: ProductoResponse) {
                     .clip(CircleShape)
             )
             Spacer(modifier = Modifier.width(16.dp))
-            Column {
-                Text(text = producto.Nombre, fontWeight = FontWeight.Bold)
-                Text(text = producto.Precio, color = Color.Gray)
-                Text(text = producto.Cantidad, color = Color.Gray)
-                Text(text = producto.Descripcion, fontWeight = FontWeight.Bold)
+            Column(
+                Modifier.weight(1f)
+            ) {
+                Text(
+                    text = producto.Nombre,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Text(
+                    text = producto.Precio,
+                    color = Color.Gray,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Text(
+                    text = producto.Cantidad,
+                    color = Color.Gray,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Text(
+                    text = producto.Descripcion,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+            Button(onClick = { /* Acción al agregar producto */ }) {
+                Text(text = "Agregar")
             }
         }
+    }
+}
+
+@Composable
+fun BottomNavigationBar() {
+    NavigationBar {
+        NavigationBarItem(
+            selected = true,
+            onClick = { /* Acción al hacer clic */ },
+            icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
+            label = { Text("Home") }
+        )
+        NavigationBarItem(
+            selected = false,
+            onClick = { /* Acción al hacer clic */ },
+            icon = { Icon(Icons.Default.ShoppingCart, contentDescription = "Carrito") },
+            label = { Text("Carrito") }
+        )
+        NavigationBarItem(
+            selected = false,
+            onClick = { /* Acción al hacer clic */ },
+            icon = { Icon(Icons.Default.Person, contentDescription = "Perfil") },
+            label = { Text("Perfil") }
+        )
     }
 }
