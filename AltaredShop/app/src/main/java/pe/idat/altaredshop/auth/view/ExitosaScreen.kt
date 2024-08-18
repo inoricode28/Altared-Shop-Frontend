@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -22,50 +23,65 @@ import androidx.navigation.NavHostController
 import pe.idat.altaredshop.R
 
 @Composable
-fun ExitosaScreen(navController: NavHostController,
-    errorImage: Painter = painterResource(id = R.drawable.ckek) // Reemplaza 'error_image' con el nombre de tu recurso
-) {
+fun ExitosaScreen(navController: NavHostController){
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Green), // Fondo principal rojo
-        contentAlignment = Alignment.Center
     ) {
+        // Imagen de fondo
+        Image(
+            painter = painterResource(id = R.drawable.wallpaper_principal), // Reemplaza con tu recurso de imagen
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
+        )
+
+        // Contenido superpuesto
         Column(
             modifier = Modifier
-                .padding(16.dp)
-                .background(Color.White, shape = RoundedCornerShape(16.dp)) // Fondo blanco con esquinas redondeadas
-                .padding(32.dp), // Padding interno del contenido
+                .fillMaxSize()
+                .padding(16.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Imagen de error
             Image(
-                painter = errorImage,
-                contentDescription = "Error",
-                modifier = Modifier.size(128.dp)
+                painter = painterResource(id = R.drawable.compra_exitosa), // Reemplaza con tu recurso de logo
+                contentDescription = "Logo",
+                contentScale = ContentScale.Fit,
+                modifier = Modifier
+                    .width(220.dp)
+                    .height(220.dp)
             )
+            Spacer(modifier = Modifier.height(100.dp))
 
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // Texto del motivo
             Text(
-                text = "La compra ha sido realizado exitosamente. Gracias por su compra.",
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.Black,
-                textAlign = TextAlign.Center
+                text = "Compra Exitosa!!!",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold
             )
-
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Botón de regresar
+            Text(
+                text = "“Su pedido ha sido confirmado y\n" +
+                        "se encuentra en preparación\n" +
+                        "para el envío.”",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // Botón de ir a menu principal
             Button(
-                onClick = {  },
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
-                modifier = Modifier.fillMaxWidth()
+                onClick = { /* Acción de iniciar sesión */ },
+                modifier = Modifier
+                    .width(250.dp)
+                    .height(48.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Cyan),
+                shape = RoundedCornerShape(24.dp)
             ) {
-                Text(text = "Regresar")
+                Text(text = "Ir a Inicio", color = Color.Black, fontSize = 16.sp)
             }
         }
     }

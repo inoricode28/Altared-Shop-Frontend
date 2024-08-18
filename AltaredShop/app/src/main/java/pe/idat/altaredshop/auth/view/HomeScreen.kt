@@ -105,8 +105,8 @@ fun homeScreen(productoViewModel: ProductoViewModel,
                 NavHost(navController = navController,
                     startDestination = RutaAltared.productoScreen.path) {
                     composable(RutaAltared.productoScreen.path){ productoScreen(productoViewModel)}
-                    composable(RutaAltared.perfilScreen.path){ perfilScreen()}
-                    //36:08
+                    composable(RutaAltared.perfilScreen.path){perfilScreen()}
+
                 }
             }
 
