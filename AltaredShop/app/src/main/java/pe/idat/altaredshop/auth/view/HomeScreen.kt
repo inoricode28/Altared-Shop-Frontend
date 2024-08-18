@@ -1,5 +1,12 @@
 package pe.idat.altaredshop.auth.view
 
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.VectorConverter
+import androidx.compose.animation.core.animateValue
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -30,9 +37,13 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -49,6 +60,8 @@ import pe.idat.altaredshop.R
 import pe.idat.altaredshop.auth.viewmodel.ProductoViewModel
 import pe.idat.altaredshop.core.ruta.RutaAltared
 import pe.idat.altaredshop.core.util.MenuItem
+
+
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -102,6 +115,7 @@ fun homeScreen(productoViewModel: ProductoViewModel,
                             )
                         }
                     })
+
                 NavHost(navController = navController,
                     startDestination = RutaAltared.productoScreen.path) {
                     composable(RutaAltared.productoScreen.path){ productoScreen(productoViewModel)}
