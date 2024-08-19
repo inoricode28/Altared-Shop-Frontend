@@ -123,6 +123,8 @@ fun homeScreen(productoViewModel: ProductoViewModel,
                     composable(RutaAltared.productoScreen.path){ productoScreen(productoViewModel,navController)}
                     composable(RutaAltared.perfilScreen.path){perfilScreen()}
                     composable(RutaAltared.pagoScreen.path){ pagoScreen(navController) }
+                    composable(RutaAltared.ExitosaScreen.path){ ExitosaScreen(navController) }
+                    composable(RutaAltared.ErroneaScreen.path){ ErroneaScreen(navController) }
 
                 }
             }

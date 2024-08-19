@@ -16,31 +16,41 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import kotlinx.coroutines.launch
+import pe.idat.altaredshop.core.ruta.RutaAltared
 
+//pagoScreen
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun pagoScreen(navController: NavHostController) {
     var cardNumber by remember { mutableStateOf("") }
+    var fecha by remember { mutableStateOf("") }
     var expirationYear by remember { mutableStateOf("") }
-    var expirationMonth by remember { mutableStateOf("") }
     var cardHolderName by remember { mutableStateOf("") }
     var securityCode by remember { mutableStateOf("") }
-    var idType by remember { mutableStateOf("CC") }
-    var idNumber by remember { mutableStateOf("") }
+    val snackbarHostState = remember { SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
-        topBar = {
-            TopAppBar(title = { Text("Formulario de pago") })
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState)
         },
         content = { padding ->
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(padding)
-                    .padding(16.dp),
+                    .padding(8.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
+                OutlinedTextField(
+                    value = cardHolderName,
+                    onValueChange = { cardHolderName = it },
+                    label = { Text("Nombre del titular") },
+                    leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
+                    modifier = Modifier.fillMaxWidth()
+                )
                 OutlinedTextField(
                     value = cardNumber,
                     onValueChange = { cardNumber = it },
@@ -53,57 +63,73 @@ fun pagoScreen(navController: NavHostController) {
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     OutlinedTextField(
-                        value = expirationYear,
-                        onValueChange = { expirationYear = it },
-                        label = { Text("Año de expiración YYYY") },
+                        value = fecha,
+                        onValueChange = { fecha = it },
+                        label = { Text(" Fecha") },
                         leadingIcon = { Icon(Icons.Default.Event, contentDescription = null) },
                         modifier = Modifier.weight(1f)
                     )
                     OutlinedTextField(
-                        value = expirationMonth,
-                        onValueChange = { expirationMonth = it },
-                        label = { Text("Mes de expiración MM") },
+                        value = expirationYear,
+                        onValueChange = { expirationYear = it },
+                        label = { Text("Año") },
                         leadingIcon = { Icon(Icons.Default.Event, contentDescription = null) },
                         modifier = Modifier.weight(1f)
                     )
                 }
-                OutlinedTextField(
-                    value = cardHolderName,
-                    onValueChange = { cardHolderName = it },
-                    label = { Text("Nombre del titular") },
-                    leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
-                    modifier = Modifier.fillMaxWidth()
-                )
+
                 OutlinedTextField(
                     value = securityCode,
                     onValueChange = { securityCode = it },
-                    label = { Text("Código de seguridad") },
+                    label = { Text("CCV") },
                     leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
                     visualTransformation = PasswordVisualTransformation(),
                     modifier = Modifier.fillMaxWidth()
                 )
-                OutlinedTextField(
-                    value = idType,
-                    onValueChange = { idType = it },
-                    label = { Text("Tipo de identificación") },
-                    modifier = Modifier.fillMaxWidth()
-                )
-                OutlinedTextField(
-                    value = idNumber,
-                    onValueChange = { idNumber = it },
-                    label = { Text("Número de identificación") },
-                    leadingIcon = { Icon(Icons.Default.AssignmentInd, contentDescription = null) },
-                    modifier = Modifier.fillMaxWidth()
-                )
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(
-                    onClick = { /* Manejar clic del botón */ },
+                    onClick = {
+                        if (cardHolderName.isNotBlank() && cardNumber.isNotBlank() && fecha.isNotBlank() && expirationYear.isNotBlank() && securityCode.isNotBlank()) {
+                            // Limpiar campos
+                            cardHolderName = ""
+                            cardNumber = ""
+                            fecha = ""
+                            expirationYear = ""
+                            securityCode = ""
+
+                            // Mostrar mensaje de registro exitoso
+                            coroutineScope.launch {
+                                snackbarHostState.showSnackbar(
+                                    "Registro exitoso",
+                                    actionLabel = "OK",
+                                    duration = SnackbarDuration.Short
+                                )
+                            }
+                        } else {
+                            // Mostrar mensaje de campos vacíos
+                            coroutineScope.launch {
+                                snackbarHostState.showSnackbar(
+                                    "Todos los campos son obligatorios",
+                                    actionLabel = "OK",
+                                    duration = SnackbarDuration.Short
+                                )
+                            }
+                        }
+                    },
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Continuar")
+                    Text("REGISTRAR")
+                }
+                Button(
+                    onClick = { navController.navigate(RutaAltared.ErroneaScreen.path) },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("PAGAR")
                 }
             }
         }
     )
 }
+
+
 

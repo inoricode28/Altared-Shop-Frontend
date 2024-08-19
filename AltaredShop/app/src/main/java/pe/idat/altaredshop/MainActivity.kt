@@ -71,6 +71,7 @@ class MainActivity : ComponentActivity() {
                         composable(RutaAltared.selectLogScreen.path){
                             selectLogScreen(navigation)
                         }
+
                     })
 
                 //loginScreen()
