@@ -53,7 +53,10 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import kotlinx.coroutines.delay
+import pe.idat.altaredshop.core.ruta.RutaAltared
 
 
 @Composable
@@ -101,7 +104,7 @@ fun ImageSlider() {
 }
 
 @Composable
-fun productoScreen(productoViewModel: ProductoViewModel) {
+fun productoScreen(productoViewModel: ProductoViewModel,navController: NavController) {
     val productos by productoViewModel.ProductoResponse.observeAsState(emptyList())
 
     Column(
@@ -144,7 +147,7 @@ fun productoScreen(productoViewModel: ProductoViewModel) {
                     modifier = Modifier.padding(16.dp)
                 ) {
                     items(productos.drop(4)) { producto -> //Empieza desde el item 5
-                        productoItem(producto = producto)
+                        productoItem(producto = producto,navController)
                     }
                 }
             }
@@ -179,13 +182,13 @@ fun CategoryItem(producto: ProductoResponse) {
 }
 
 @Composable
-fun productoItem(producto: ProductoResponse) {
+fun productoItem(producto: ProductoResponse,navController: NavController) {
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-        shape = MaterialTheme.shapes.medium,
+        shape = MaterialTheme.shapes.large,
         modifier = Modifier
             .width(220.dp) // Ajusta el ancho fijo
-            .height(400.dp) // Ajusta el alto fijo
+            .height(350.dp) // Ajusta el alto fijo
             .padding(8.dp), // Ajusta el padding si es necesario
         colors = CardDefaults.cardColors(
             containerColor = Color.White
@@ -218,12 +221,12 @@ fun productoItem(producto: ProductoResponse) {
                 overflow = TextOverflow.Ellipsis
             )
             Text(
-                text = producto.Precio,
+                text = "Precio: S/.${producto.Precio}",
                 color = Color.Gray,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-            Text(
+            /*Text(
                 text = producto.Cantidad,
                 color = Color.Gray,
                 maxLines = 1,
@@ -234,9 +237,9 @@ fun productoItem(producto: ProductoResponse) {
                 fontWeight = FontWeight.Bold,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
-            )
+            )*/
             Spacer(modifier = Modifier.height(8.dp))
-            Button(onClick = { /* Acción al agregar producto */ }) {
+            Button(onClick = { navController.navigate(RutaAltared.pagoScreen.path) }) {
                 Text(text = "Agregar")
             }
         }

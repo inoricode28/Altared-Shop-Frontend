@@ -78,9 +78,11 @@ fun homeScreen(productoViewModel: ProductoViewModel,
                 coroutineScope.launch {
                     drawerState.close()
                 }
-                when(item.titulo){
+                when(item.titulo){//Aqui Van los items del menu
                     "HOME" -> navController.navigate(RutaAltared.productoScreen.path)
                     "PERFIL" -> navController.navigate(RutaAltared.perfilScreen.path)
+                    "PAGO" -> navController.navigate(RutaAltared.pagoScreen.path)
+
                 }
             },productoViewModel)
             
@@ -118,8 +120,9 @@ fun homeScreen(productoViewModel: ProductoViewModel,
 
                 NavHost(navController = navController,
                     startDestination = RutaAltared.productoScreen.path) {
-                    composable(RutaAltared.productoScreen.path){ productoScreen(productoViewModel)}
+                    composable(RutaAltared.productoScreen.path){ productoScreen(productoViewModel,navController)}
                     composable(RutaAltared.perfilScreen.path){perfilScreen()}
+                    composable(RutaAltared.pagoScreen.path){ pagoScreen(navController) }
 
                 }
             }
@@ -192,7 +195,8 @@ fun DrawerMenuItem(
 fun opcionesMenu(): List<MenuItem>{
     return listOf(
         MenuItem(Icons.Default.Pets, "HOME"),
-        MenuItem(Icons.Default.People, "PERFIL")
+        MenuItem(Icons.Default.People, "PERFIL"),
+        MenuItem(Icons.Default.People, "PAGO")
     )
 
 }
