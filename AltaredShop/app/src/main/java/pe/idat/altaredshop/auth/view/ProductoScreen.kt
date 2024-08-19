@@ -122,9 +122,8 @@ fun productoScreen(productoViewModel: ProductoViewModel) {
                     modifier = Modifier.padding(horizontal = 16.dp)
                 )
 
-                // Limitar a las primeras 4 imágenes
                 LazyRow(modifier = Modifier.padding(16.dp)) {
-                    items(productos.take(4)) { producto ->
+                    items(productos.take(4)) { producto -> //Los 4 primero items son de categoria
                         CategoryItem(producto = producto)
                     }
                 }
@@ -139,9 +138,15 @@ fun productoScreen(productoViewModel: ProductoViewModel) {
                 )
             }
 
-            // Mostrar las imágenes desde la quinta en adelante
-            items(productos.drop(4)) { producto ->
-                productoItem(producto = producto)
+            item {
+                // Mostrar los productos en un LazyRow para un desplazamiento horizontal
+                LazyRow(
+                    modifier = Modifier.padding(16.dp)
+                ) {
+                    items(productos.drop(4)) { producto -> //Empieza desde el item 5
+                        productoItem(producto = producto)
+                    }
+                }
             }
         }
 
@@ -177,20 +182,20 @@ fun CategoryItem(producto: ProductoResponse) {
 fun productoItem(producto: ProductoResponse) {
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-        shape = MaterialTheme.shapes.large,
+        shape = MaterialTheme.shapes.medium,
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(5.dp),
+            .width(220.dp) // Ajusta el ancho fijo
+            .height(400.dp) // Ajusta el alto fijo
+            .padding(8.dp), // Ajusta el padding si es necesario
         colors = CardDefaults.cardColors(
             containerColor = Color.White
         )
-
     ) {
-        Row(
+        Column(
             Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
                 painter = rememberAsyncImagePainter(
@@ -202,38 +207,35 @@ fun productoItem(producto: ProductoResponse) {
                         }).build()
                 ), contentDescription = null,
                 modifier = Modifier
-                    .size(60.dp)
-                    .clip(CircleShape)
+                    .size(180.dp)
+                    .clip(RoundedCornerShape(16.dp))
             )
-            Spacer(modifier = Modifier.width(16.dp))
-            Column(
-                Modifier.weight(1f)
-            ) {
-                Text(
-                    text = producto.Nombre,
-                    fontWeight = FontWeight.Bold,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Text(
-                    text = producto.Precio,
-                    color = Color.Gray,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Text(
-                    text = producto.Cantidad,
-                    color = Color.Gray,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Text(
-                    text = producto.Descripcion,
-                    fontWeight = FontWeight.Bold,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = producto.Nombre,
+                fontWeight = FontWeight.Bold,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+            Text(
+                text = producto.Precio,
+                color = Color.Gray,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+            Text(
+                text = producto.Cantidad,
+                color = Color.Gray,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+            Text(
+                text = producto.Descripcion,
+                fontWeight = FontWeight.Bold,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
+            )
+            Spacer(modifier = Modifier.height(8.dp))
             Button(onClick = { /* Acción al agregar producto */ }) {
                 Text(text = "Agregar")
             }
