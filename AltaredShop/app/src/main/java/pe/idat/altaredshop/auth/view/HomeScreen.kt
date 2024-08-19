@@ -65,6 +65,7 @@ fun homeScreen(
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val coroutineScope = rememberCoroutineScope()
     val navController = rememberNavController()
+
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
@@ -128,7 +129,7 @@ fun homeScreen(
                             productoScreen(productoViewModel, navController)
                         }
                         composable(RutaAltared.perfilScreen.path) {
-                            perfilScreen()
+                            perfilScreen(productoViewModel)
                         }
                         composable(RutaAltared.pagoScreen.path) {
                             pagoScreen(navController)

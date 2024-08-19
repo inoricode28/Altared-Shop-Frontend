@@ -16,6 +16,8 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -27,23 +29,28 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import pe.idat.altaredshop.R
+import pe.idat.altaredshop.auth.viewmodel.ProductoViewModel
 
 @Composable
-fun perfilScreen() {
-    // Estado para los campos de texto
-    val nombre = remember { mutableStateOf("") }
-    val apellido = remember { mutableStateOf("") }
-    val correo = remember { mutableStateOf("") }
-    val telefono = remember { mutableStateOf("") }
-    val usuario = remember { mutableStateOf("") }
-    val contraseña = remember { mutableStateOf("") }
+fun perfilScreen(productoViewModel: ProductoViewModel) {
+    // Observa los datos del usuario desde el ViewModel
+    val usuario by productoViewModel.usuario.observeAsState()
+
+    // Estados para los campos de texto, inicializados con los valores observados
+    val nombre = remember { mutableStateOf(usuario?.nombre ?: "") }
+    val apellido = remember { mutableStateOf(usuario?.apellido ?: "") }
+    val correo = remember { mutableStateOf(usuario?.correo ?: "") }
+    val telefono = remember { mutableStateOf(usuario?.celular ?: "") }
+    val usuarioEstado = remember { mutableStateOf(usuario?.user ?: "") }
+    val contraseña = remember { mutableStateOf(usuario?.pass ?: "") }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
     ) {
         // Imagen de fondo
         Image(
-            painter = painterResource(id = R.drawable.wallpaper_principal), // Reemplaza con tu recurso de imagen
+            painter = painterResource(id = R.drawable.wallpaper_principal),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
@@ -58,7 +65,7 @@ fun perfilScreen() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ikuyo_kita), // Reemplaza con tu recurso de logo
+                painter = painterResource(id = R.drawable.ikuyo_kita),
                 contentDescription = "Logo",
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
@@ -66,13 +73,13 @@ fun perfilScreen() {
                     .height(120.dp)
             )
             Spacer(modifier = Modifier.height(1.dp))
+
             // Campo de texto para nombre
             OutlinedTextField(
                 value = nombre.value,
                 onValueChange = { nombre.value = it },
-                label = { Text("nombre") },
-                modifier = Modifier
-                    .fillMaxWidth(),
+                label = { Text("Nombre") },
+                modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(10.dp),
             )
             Spacer(modifier = Modifier.height(10.dp))
@@ -80,8 +87,8 @@ fun perfilScreen() {
             // Campo de texto para apellido
             OutlinedTextField(
                 value = apellido.value,
-                onValueChange = { nombre.value = it },
-                label = { Text("apellido") },
+                onValueChange = { apellido.value = it },
+                label = { Text("Apellido") },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(10.dp),
             )
@@ -90,18 +97,18 @@ fun perfilScreen() {
             // Campo de texto para correo electrónico
             OutlinedTextField(
                 value = correo.value,
-                onValueChange = { nombre.value = it },
-                label = { Text("e-mail") },
+                onValueChange = { correo.value = it },
+                label = { Text("E-mail") },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(10.dp),
             )
             Spacer(modifier = Modifier.height(10.dp))
 
-            // Campo de texto para telefono
+            // Campo de texto para teléfono
             OutlinedTextField(
                 value = telefono.value,
-                onValueChange = { nombre.value = it },
-                label = { Text("telefono") },
+                onValueChange = { telefono.value = it },
+                label = { Text("Teléfono") },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(10.dp),
             )
@@ -109,9 +116,9 @@ fun perfilScreen() {
 
             // Campo de texto para usuario
             OutlinedTextField(
-                value = usuario.value,
-                onValueChange = { nombre.value = it },
-                label = { Text("usuario") },
+                value = usuarioEstado.value,
+                onValueChange = { usuarioEstado.value = it },
+                label = { Text("Usuario") },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(10.dp),
             )
@@ -126,18 +133,6 @@ fun perfilScreen() {
                 shape = RoundedCornerShape(10.dp),
             )
             Spacer(modifier = Modifier.height(20.dp))
-
-            // Botón de Aceptar
-            Button(
-                onClick = { /* Acción de iniciar sesión */ },
-                modifier = Modifier
-                    .width(250.dp)
-                    .height(48.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Cyan),
-                shape = RoundedCornerShape(24.dp)
-            ) {
-                Text(text = "Registrarse", color = Color.Black, fontSize = 16.sp)
-            }
         }
     }
 }
