@@ -19,7 +19,6 @@ import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
 import pe.idat.altaredshop.core.ruta.RutaAltared
 
-//pagoScreen
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun pagoScreen(navController: NavHostController) {
@@ -28,6 +27,8 @@ fun pagoScreen(navController: NavHostController) {
     var expirationYear by remember { mutableStateOf("") }
     var cardHolderName by remember { mutableStateOf("") }
     var securityCode by remember { mutableStateOf("") }
+    var storedSecurityCode by remember { mutableStateOf("") }
+    var isRegistered by remember { mutableStateOf(false) }
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
 
@@ -49,14 +50,16 @@ fun pagoScreen(navController: NavHostController) {
                     onValueChange = { cardHolderName = it },
                     label = { Text("Nombre del titular") },
                     leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = !isRegistered
                 )
                 OutlinedTextField(
                     value = cardNumber,
                     onValueChange = { cardNumber = it },
                     label = { Text("Número de la tarjeta") },
                     leadingIcon = { Icon(Icons.Default.CreditCard, contentDescription = null) },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = !isRegistered
                 )
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -65,16 +68,18 @@ fun pagoScreen(navController: NavHostController) {
                     OutlinedTextField(
                         value = fecha,
                         onValueChange = { fecha = it },
-                        label = { Text(" Fecha") },
+                        label = { Text("Fecha") },
                         leadingIcon = { Icon(Icons.Default.Event, contentDescription = null) },
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f),
+                        enabled = !isRegistered
                     )
                     OutlinedTextField(
                         value = expirationYear,
                         onValueChange = { expirationYear = it },
                         label = { Text("Año") },
                         leadingIcon = { Icon(Icons.Default.Event, contentDescription = null) },
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f),
+                        enabled = !isRegistered
                     )
                 }
 
@@ -90,11 +95,11 @@ fun pagoScreen(navController: NavHostController) {
                 Button(
                     onClick = {
                         if (cardHolderName.isNotBlank() && cardNumber.isNotBlank() && fecha.isNotBlank() && expirationYear.isNotBlank() && securityCode.isNotBlank()) {
-                            // Limpiar campos
-                            cardHolderName = ""
-                            cardNumber = ""
-                            fecha = ""
-                            expirationYear = ""
+                            // Almacenar el valor del CCV y deshabilitar campos
+                            storedSecurityCode = securityCode
+                            isRegistered = true
+
+                            // Limpiar CCV
                             securityCode = ""
 
                             // Mostrar mensaje de registro exitoso
@@ -116,13 +121,21 @@ fun pagoScreen(navController: NavHostController) {
                             }
                         }
                     },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = !isRegistered
                 ) {
                     Text("REGISTRAR")
                 }
                 Button(
-                    onClick = { navController.navigate(RutaAltared.ErroneaScreen.path) },
-                    modifier = Modifier.fillMaxWidth()
+                    onClick = {
+                        if (securityCode == storedSecurityCode) {
+                            navController.navigate(RutaAltared.ExitosaScreen.path)
+                        } else {
+                            navController.navigate(RutaAltared.ErroneaScreen.path)
+                        }
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = isRegistered
                 ) {
                     Text("PAGAR")
                 }
@@ -130,6 +143,7 @@ fun pagoScreen(navController: NavHostController) {
         }
     )
 }
+
 
 
 
