@@ -23,7 +23,9 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CreditCard
 import androidx.compose.material.icons.filled.ExitToApp
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.filled.Pets
@@ -196,9 +198,9 @@ fun DrawerMenuItem(
 
 fun opcionesMenu(): List<MenuItem>{
     return listOf(
-        MenuItem(Icons.Default.Pets, "HOME"),
+        MenuItem(Icons.Default.Home, "HOME"),
         MenuItem(Icons.Default.People, "PERFIL"),
-        MenuItem(Icons.Default.People, "PAGO")
+        MenuItem(Icons.Default.CreditCard, "PAGO")
     )
 
 }

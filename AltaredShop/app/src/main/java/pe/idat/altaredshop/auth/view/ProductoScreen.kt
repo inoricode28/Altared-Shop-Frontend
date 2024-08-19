@@ -49,6 +49,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CreditCard
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingCart
@@ -255,17 +256,18 @@ fun BottomNavigationBar() {
             icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
             label = { Text("Home") }
         )
-        NavigationBarItem(
-            selected = false,
-            onClick = { /* Acción al hacer clic */ },
-            icon = { Icon(Icons.Default.ShoppingCart, contentDescription = "Carrito") },
-            label = { Text("Carrito") }
-        )
+
         NavigationBarItem(
             selected = false,
             onClick = { /* Acción al hacer clic */ },
             icon = { Icon(Icons.Default.Person, contentDescription = "Perfil") },
             label = { Text("Perfil") }
+        )
+        NavigationBarItem(
+            selected = false,
+            onClick = { /* Acción al hacer clic */ },
+            icon = { Icon(Icons.Default.CreditCard, contentDescription = "Carrito") },
+            label = { Text("Pago") }
         )
     }
 }

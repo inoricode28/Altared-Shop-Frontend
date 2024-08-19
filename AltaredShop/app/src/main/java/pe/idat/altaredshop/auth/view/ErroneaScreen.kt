@@ -1,29 +1,29 @@
 package pe.idat.altaredshop.auth.view
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavHostController
 import pe.idat.altaredshop.R
+import pe.idat.altaredshop.core.ruta.RutaAltared
+import androidx.compose.ui.platform.LocalContext
+import android.app.Activity
 
 @Composable
 fun ErroneaScreen(navController: NavHostController){
+    val activity = LocalContext.current as? Activity
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -74,7 +74,7 @@ fun ErroneaScreen(navController: NavHostController){
 
             // Botón de reintentar
             Button(
-                onClick = { /* Acción de reintentar proceso de compra */ },
+                onClick = { navController.navigate(RutaAltared.pagoScreen.path) },
                 modifier = Modifier
                     .width(250.dp)
                     .height(48.dp),
@@ -87,7 +87,7 @@ fun ErroneaScreen(navController: NavHostController){
 
             // Botón de salir e ir a menu principal
             Button(
-                onClick = { /* Acción de ir a menu principal */ },
+                onClick = { activity?.finish() },
                 modifier = Modifier
                     .width(250.dp)
                     .height(48.dp),

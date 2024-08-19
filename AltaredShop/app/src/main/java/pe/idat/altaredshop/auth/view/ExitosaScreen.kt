@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavHostController
 import pe.idat.altaredshop.R
+import pe.idat.altaredshop.core.ruta.RutaAltared
 
 @Composable
 fun ExitosaScreen(navController: NavHostController){
@@ -74,7 +75,7 @@ fun ExitosaScreen(navController: NavHostController){
 
             // Botón de ir a menu principal
             Button(
-                onClick = { /* Acción de iniciar sesión */ },
+                onClick = { navController.navigate(RutaAltared.productoScreen.path) },
                 modifier = Modifier
                     .width(250.dp)
                     .height(48.dp),
