@@ -27,9 +27,13 @@ const createProductosTableAndData = async () => {
             
             await dbConnection.execute(`
             INSERT INTO Productos (Nombre, Precio, Cantidad, Descripcion, Imagen) VALUES
-            ('Collagsure Flex 500g', '50.00', '20', 'Sabor frambuesa', 'http://${config.host}:${config.port}/uploads/default1.jpg'),
-            ('Collagsure Puro 500g', '50.00', '20', 'Sabor neutro', 'http://${config.host}:${config.port}/uploads/default2.jpg'),
-            ('Collagsure Q10 500g', '50.00', '20', 'Sabor fresa', 'http://${config.host}:${config.port}/uploads/default3.jpg');
+            ('Dermatologico', '50.00', '20', 'Sabor frambuesa', 'http://${config.host}:${config.port}/uploads/default1.jpg'),
+            ('Nutricional', '50.00', '20', 'Sabor neutro', 'http://${config.host}:${config.port}/uploads/default2.jpg'),
+            ('Odontológico', '50.00', '20', 'Sabor fresa', 'http://${config.host}:${config.port}/uploads/default3.jpg'),
+            ('Cosmetologico', '50.00', '20', 'Sabor fresa', 'http://${config.host}:${config.port}/uploads/default4.jpg'),
+            ('Collagsure Flex 500g', '50.00', '20', 'Sabor fresa', 'http://${config.host}:${config.port}/uploads/default5.jpg'),
+            ('Collagsure Puro 500g', '50.00', '20', 'Sabor fresa', 'http://${config.host}:${config.port}/uploads/default6.jpg'),
+            ('Collagsure Q10 500g', '50.00', '20', 'Sabor fresa', 'http://${config.host}:${config.port}/uploads/default7.jpg');
             `);
             console.log(`Datos insertados en la tabla 'Productos'.`);
         } else {

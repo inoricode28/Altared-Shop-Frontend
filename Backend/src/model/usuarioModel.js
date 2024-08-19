@@ -30,9 +30,10 @@ const createUsuarioTableAndData = async () => {
             
             await dbConnection.execute(`
             INSERT INTO Usuario (nombre, apellido, correo, celular, user, pass) VALUES
-            ('Ken', 'Vega', 'ken@altared.com', '123456789', 'ken', '123'),
-            ('Mige', 'Chavez', 'mige@altared.com', '987654321', 'mige', '125'),
-            ('Walter', 'Vasques', 'walter@altared.com', '123123123', 'walter', '145');
+            ('Kenshin', 'Vega', 'kenshi@altared.com', '123456789', 'kenshin', '123'),
+            ('Miguel', 'Chavez', 'miguel@altared.com', '987654321', 'miguel', '1234'),
+            ('Walter', 'Vasques', 'walter@altared.com', '123123123', 'walter', '12345'),
+            ('Alvaro', 'Cardenas', 'alvaro@altared.com', '951753456', 'alvaro', '123456');
             `);
             console.log(`Datos insertados en la tabla 'Usuario'.`);
         } else {
