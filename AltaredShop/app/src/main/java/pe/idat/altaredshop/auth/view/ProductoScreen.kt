@@ -60,6 +60,10 @@ import kotlinx.coroutines.delay
 import pe.idat.altaredshop.core.ruta.RutaAltared
 
 
+
+
+
+
 @Composable
 fun ImageSlider() {
     val images = listOf(
@@ -155,7 +159,7 @@ fun productoScreen(productoViewModel: ProductoViewModel,navController: NavContro
         }
 
         // Barra de navegación inferior
-        BottomNavigationBar()
+//        BottomNavigationBar()
     }
 }
 
@@ -247,27 +251,27 @@ fun productoItem(producto: ProductoResponse,navController: NavController) {
     }
 }
 
-@Composable
-fun BottomNavigationBar() {
-    NavigationBar {
-        NavigationBarItem(
-            selected = true,
-            onClick = { /* Acción al hacer clic */ },
-            icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
-            label = { Text("Home") }
-        )
-
-        NavigationBarItem(
-            selected = false,
-            onClick = { /* Acción al hacer clic */ },
-            icon = { Icon(Icons.Default.Person, contentDescription = "Perfil") },
-            label = { Text("Perfil") }
-        )
-        NavigationBarItem(
-            selected = false,
-            onClick = { /* Acción al hacer clic */ },
-            icon = { Icon(Icons.Default.CreditCard, contentDescription = "Carrito") },
-            label = { Text("Pago") }
-        )
-    }
-}
+//@Composable
+//fun BottomNavigationBar() {
+//    NavigationBar {
+//        NavigationBarItem(
+//            selected = true,
+//            onClick = { /* Acción al hacer clic */ },
+//            icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
+//            label = { Text("Home") }
+//        )
+//
+//        NavigationBarItem(
+//            selected = false,
+//            onClick = { /* Acción al hacer clic */ },
+//            icon = { Icon(Icons.Default.Person, contentDescription = "Perfil") },
+//            label = { Text("Perfil") }
+//        )
+//        NavigationBarItem(
+//            selected = false,
+//            onClick = { /* Acción al hacer clic */ },
+//            icon = { Icon(Icons.Default.CreditCard, contentDescription = "Carrito") },
+//            label = { Text("Pago") }
+//        )
+//    }
+//}

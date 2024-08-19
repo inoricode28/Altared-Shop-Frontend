@@ -66,32 +66,46 @@ import pe.idat.altaredshop.core.util.MenuItem
 
 
 
+
+import androidx.compose.material.icons.filled.Person
+
+import androidx.compose.material3.*
+
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun homeScreen(productoViewModel: ProductoViewModel,
-               principalNavController: NavController){
+fun homeScreen(
+    productoViewModel: ProductoViewModel,
+    principalNavController: NavController
+) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val coroutineScope = rememberCoroutineScope()
     val navController = rememberNavController()
-    ModalNavigationDrawer(drawerState = drawerState,
+    ModalNavigationDrawer(
+        drawerState = drawerState,
         drawerContent = {
-            DrawerContent(items = opcionesMenu(), onItemClick = {
-                item ->
-                coroutineScope.launch {
-                    drawerState.close()
-                }
-                when(item.titulo){//Aqui Van los items del menu
-                    "HOME" -> navController.navigate(RutaAltared.productoScreen.path)
-                    "PERFIL" -> navController.navigate(RutaAltared.perfilScreen.path)
-                    "PAGO" -> navController.navigate(RutaAltared.pagoScreen.path)
-
-                }
-            },productoViewModel)
-            
+            DrawerContent(
+                items = opcionesMenu(),
+                onItemClick = { item ->
+                    coroutineScope.launch {
+                        drawerState.close()
+                    }
+                    when (item.titulo) {
+                        "HOME" -> navController.navigate(RutaAltared.productoScreen.path)
+                        "PERFIL" -> navController.navigate(RutaAltared.perfilScreen.path)
+                        "PAGO" -> navController.navigate(RutaAltared.pagoScreen.path)
+                    }
+                },
+                productoViewModel = productoViewModel
+            )
         },
         content = {
-            Column {
-                TopAppBar(title = { Text(text = "ALTARED APP") },
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+            ) {
+                TopAppBar(
+                    title = { Text(text = "ALTARED APP") },
                     colors = TopAppBarDefaults.topAppBarColors(
                         containerColor = Color.White,
                         titleContentColor = Color.Black
@@ -102,36 +116,53 @@ fun homeScreen(productoViewModel: ProductoViewModel,
                                 drawerState.open()
                             }
                         }) {
-                          Icon(Icons.Default.Menu, contentDescription = "Menu")
-
+                            Icon(Icons.Default.Menu, contentDescription = "Menu")
                         }
                     },
                     actions = {
                         IconButton(onClick = {
                             productoViewModel.eliminarUsuario()
-                            principalNavController.navigate("loginScreen"){
-                                popUpTo(navController.graph.startDestinationId) {inclusive = true }
+                            principalNavController.navigate("loginScreen") {
+                                popUpTo(navController.graph.startDestinationId) { inclusive = true }
                             }
                         }) {
-                            Icon(imageVector = Icons.Default.ExitToApp,
+                            Icon(
+                                imageVector = Icons.Default.ExitToApp,
                                 contentDescription = null,
                                 tint = Color.Black
                             )
                         }
-                    })
+                    }
+                )
 
-                NavHost(navController = navController,
-                    startDestination = RutaAltared.productoScreen.path) {
-                    composable(RutaAltared.productoScreen.path){ productoScreen(productoViewModel,navController)}
-                    composable(RutaAltared.perfilScreen.path){perfilScreen()}
-                    composable(RutaAltared.pagoScreen.path){ pagoScreen(navController) }
-                    composable(RutaAltared.ExitosaScreen.path){ ExitosaScreen(navController) }
-                    composable(RutaAltared.ErroneaScreen.path){ ErroneaScreen(navController) }
-
+                Box(modifier = Modifier.weight(1f)) {
+                    NavHost(
+                        navController = navController,
+                        startDestination = RutaAltared.productoScreen.path
+                    ) {
+                        composable(RutaAltared.productoScreen.path) {
+                            productoScreen(productoViewModel, navController)
+                        }
+                        composable(RutaAltared.perfilScreen.path) {
+                            perfilScreen()
+                        }
+                        composable(RutaAltared.pagoScreen.path) {
+                            pagoScreen(navController)
+                        }
+                        composable(RutaAltared.ExitosaScreen.path) {
+                            ExitosaScreen(navController)
+                        }
+                        composable(RutaAltared.ErroneaScreen.path) {
+                            ErroneaScreen(navController)
+                        }
+                    }
                 }
-            }
 
-        }) 
+                // Barra de navegación inferior
+                BottomNavigationBar()
+            }
+        }
+    )
 }
 
 @Composable
@@ -203,4 +234,29 @@ fun opcionesMenu(): List<MenuItem>{
         MenuItem(Icons.Default.CreditCard, "PAGO")
     )
 
+}
+
+@Composable
+fun BottomNavigationBar() {
+    NavigationBar {
+        NavigationBarItem(
+            selected = true,
+            onClick = { /* Acción al hacer clic */ },
+            icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
+            label = { Text("Home") }
+        )
+
+        NavigationBarItem(
+            selected = false,
+            onClick = { /* Acción al hacer clic */ },
+            icon = { Icon(Icons.Default.Person, contentDescription = "Perfil") },
+            label = { Text("Perfil") }
+        )
+        NavigationBarItem(
+            selected = false,
+            onClick = { /* Acción al hacer clic */ },
+            icon = { Icon(Icons.Default.CreditCard, contentDescription = "Carrito") },
+            label = { Text("Pago") }
+        )
+    }
 }
