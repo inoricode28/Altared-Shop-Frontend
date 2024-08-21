@@ -1,0 +1,36 @@
+Manual de Uso
+Si has clonado de git
+
+primero ejecutaras en tu tu terminal
+--> npm update
+Esto permitira actualizar el proyecto
+
+El programa tiene un inicializador
+iniciar.bat
+
+ejecuta:
+-- > iniciar
+Abrira un menu con tres opciones:
+1 Ejecutar DATABASE
+2 Ejecutar APIREST
+3 Eliminar DATABASE
+
+Siempre ejecuta la 1 y la 2.
+
+
+//dependencias del proyecto
+npm i dotenv express promise-mysql
+
+
+//dependencias solo para desarrollo
+
+npm i @babel/cli @babel/core @babel/node @babel/preset-env morgan nodemon -D
+
+
+"scripts": {
+    "babel-node": "babel-node --preset=@babel/preset-env",
+    "dev": "nodemon --exec npm run babel-node src/index.js"
+  },
+
+
+
